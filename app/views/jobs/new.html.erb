@@ -32,7 +32,9 @@
         <label>
           <%= check_box 'job_files', 'original_path', {multiple: true},  v['path'] %>
           <span class="video-durastion">
-            <%= Time.at(v['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
+            <% if v['video_info'] and v['video_info']['duration'] %>
+              <%= Time.at(v['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
+            <% end %>
           </span>
           &nbsp;
           <span class="video-path"
