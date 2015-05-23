@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'visitors#index'
-  devise_for :users
+  resources :jobs
+  root to: 'visitors#job_start'
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 end

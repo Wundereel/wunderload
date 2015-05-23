@@ -13,12 +13,18 @@ group :development, :test do
 end
 gem 'bootstrap-sass'
 gem 'devise'
+gem 'dropbox-sdk'
+gem 'omniauth'
+gem 'omniauth-dropbox-oauth2'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
 gem 'simple_form'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 group :development do
+  gem 'annotate'
   gem 'better_errors'
+  gem 'domp'
   gem 'foreman'
   gem 'guard-bundler'
   gem 'guard-rails'
@@ -31,6 +37,7 @@ group :development do
   gem 'spring-commands-rspec'
 end
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'pry-rails'

@@ -1,0 +1,11 @@
+// Place all the styles related to the jobs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+:checked ~ .video-select {
+  border: 2px solid blue;
+}
+
+.video-select {
+  border: 2px solid transparent;
+}

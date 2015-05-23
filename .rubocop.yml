@@ -8,3 +8,7 @@ AllCops:
    - 'db/seeds.rb'
    - 'db/schema.rb'
    - 'vendor/bundle/**/*'
+MethodLength:
+  Max: 50
+Rails/TimeZone:
+  EnforcedStyle: acceptable
