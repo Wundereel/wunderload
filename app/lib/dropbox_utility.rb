@@ -42,7 +42,6 @@ module DropboxUtility
   end
 
   def sync_job_files(job)
-    debugger
     client = uploader_client
 
     client.put_file job_folder(job) + "SPEC - Reel #{job.id}.txt", job_description(job)
