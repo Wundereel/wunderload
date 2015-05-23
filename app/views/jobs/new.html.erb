@@ -28,18 +28,20 @@
       <% end %>
     </h4>
     <% videos.each do |v| %>
-      <label>
-        <%= check_box 'job_files', 'original_path', {multiple: true},  v['path'] %>
-        <span class="video-durastion">
-          <%= Time.at(v['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
-        </span>
-        &nbsp;
-        <span class="video-path"
-              title="<%= v['path'].split('/')[0...-1].join('/') + "/" %>"
-        >
-          <%= truncate(v['path'].split('/')[-1], length: 30) %>
-        </span>
-      </label>
+      <div class="checkbox">
+        <label>
+          <%= check_box 'job_files', 'original_path', {multiple: true},  v['path'] %>
+          <span class="video-durastion">
+            <%= Time.at(v['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
+          </span>
+          &nbsp;
+          <span class="video-path"
+                title="<%= v['path'].split('/')[0...-1].join('/') + "/" %>"
+          >
+            <%= truncate(v['path'].split('/')[-1], length: 30) %>
+          </span>
+        </label>
+      </div>
     <% end %>
   <% end %>
 

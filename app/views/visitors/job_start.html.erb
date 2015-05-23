@@ -8,7 +8,8 @@
     <div class="text-center">
       <%= link_to(
           "Sign in with Dropbox",
-          user_omniauth_authorize_path(:dropbox_oauth2),
+          new_job_path,
+        #  user_omniauth_authorize_path(:dropbox_oauth2),
           { class: "btn btn-primary btn-lg"}
         )
       %>
