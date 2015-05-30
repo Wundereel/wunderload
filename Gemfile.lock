@@ -1,4 +1,15 @@
 GIT
+  remote: https://github.com/resque/resque-web.git
+  revision: 389f448bdd60bdbec6399d3ee2e5adc9243d01b2
+  specs:
+    resque-web (0.0.6)
+      coffee-rails
+      jquery-rails
+      resque
+      sass-rails
+      twitter-bootstrap-rails
+
+GIT
   remote: https://github.com/stripe/stripe-ruby
   revision: 8ba1a0e4908cccf20198791aa8f72acc63575589
   specs:
@@ -346,6 +357,11 @@ GEM
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
+    twitter-bootstrap-rails (3.2.0)
+      actionpack (~> 4.1)
+      execjs (~> 2.2)
+      rails (~> 4.1)
+      railties (~> 4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -410,6 +426,7 @@ DEPENDENCIES
   redis-namespace
   resque
   resque-scheduler
+  resque-web!
   rspec-rails
   rubocop
   sass-rails (~> 5.0)

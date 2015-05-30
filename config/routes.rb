@@ -1,4 +1,7 @@
+require "resque_web"
+
 Rails.application.routes.draw do
+  mount ResqueWeb::Engine => "/resque_web"
   resources :jobs
   root to: 'visitors#job_start'
   devise_for :users, :controllers => {
