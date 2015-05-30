@@ -5,10 +5,6 @@ class DeltaLoadDropboxJob < ActiveJob::Base
     retry_job wait: 10.seconds
   end
 
-  def client
-    @client ||= Redis::Namespace.new(:dropbox_cache)
-  end
-
   def perform(dropbox_uid, token)
 
     logger.debug "Arguments are: #{dropbox_uid}, #{token}"

@@ -5,7 +5,15 @@ class DropboxCache
   include Singleton
 
   def client
-    @client ||= Redis::Namespace.new(:dropbox_cache)
+    return @client if @client
+    if ENV['REDISCLOUD_URL']
+      uri = URI.parse(ENV["REDISCLOUD_URL"])
+      redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+    else
+      redis = Redis.new
+    end
+
+    @client = Redis::Namespace.new(:dropbox_cache, redis: redis)
   end
 
   def delta_for(token, cursor)
