@@ -44,14 +44,14 @@ module DropboxUtility
   def sync_job_files(job)
     client = uploader_client
 
-    client.put_file(
-      job_folder(job) + "SPEC - Reel #{job.id}.txt",
-      job_description(job)
-    )
+    # client.put_file(
+    #   job_folder(job) + "SPEC - Reel #{job.id}.txt",
+    #   job_description(job)
+    # )
 
-    job.files.each do |file|
+    job.files.each_with_index do |file, i|
       client.add_copy_ref(
-        job_folder(job) + file.original_path.split('/')[-1],
+        job_folder(job) + "#{i} - " + file.original_path.split('/')[-1],
         file.copy_ref
       )
     end

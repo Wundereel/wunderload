@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require sortable/js/sortable.js
 //= require_tree .

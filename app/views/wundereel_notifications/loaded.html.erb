@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <pre>
+      <%=
+        <<-DESC.gsub(/^ +/, '')
+          Creation Date: #{DateTime.now.in_time_zone.to_date}
+          Customer Name: #{@job.user.name}
+          Email: #{@job.user.email}
+          Cust UID: #{@job.user.id}
+          Reel UID: #{@job.id}
+          Sum of length of raw video files in reel folder:
+          Title: #{@job.title}
+          Music Genre: #{@job.music}
+          Job Folder: #{DropboxUtility.job_folder(@job)}
+          Notes to Editor:
+          #{@job.notes}
+          Names in Reel:
+          #{@job.names_in_reel}
+          Share Friends:
+          #{@job.share_emails}
+        DESC
+      %>
+  </body>
+</html>

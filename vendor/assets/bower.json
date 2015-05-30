@@ -1,0 +1,6 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "sortable": "0.6.0"
+  }
+}

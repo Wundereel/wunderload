@@ -27,12 +27,15 @@
   <h3>Choose raw video files -- more is better, we’ll cut out the junk.</h3>
 
   <table data-sortable class="table video-select-table">
-    <tr>
-      <th>Name</th>
-      <th>Length</th>
-      <th>Modified</th>
-      <th>Selected</th>
-    </tr>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Length</th>
+        <th>Modified</th>
+        <th>Selected</th>
+      </tr>
+    </thead>
+    <tbody>
     <% @videos.sort_by { |k,v| DateTime.parse(v['modified']).to_i }.reverse.each do |_k,video| %>
       <tr>
         <td data-value="<% video['path'].split('/')[-1] %>">
@@ -44,23 +47,19 @@
             </div>
         </td>
         <td>
-          <label for="<%= "select-video-#{video['path']}" %>">
           <% if video['video_info'] and video['video_info']['duration'] %>
             <%= Time.at(video['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
           <% end %>
         </td>
         <td data-value="<%= DateTime.parse(video['modified']).to_i %>">
-          <label for="<%= "select-video-#{video['path']}" %>">
-            <%= DateTime.parse(video['modified']).strftime("%-m/%-d/%Y %r") %>
-          </label>
+          <%= DateTime.parse(video['modified']).strftime("%-m/%-d/%Y %r") %>
         </td>
         <td data-sortable="false">
-          <label for="<%= "select-video-#{video['path']}" %>">
           <%= check_box 'job_files', 'original_path', {id: "select-video-#{video['path']}", multiple: true},  video['path'] %>
-          </label>
         </td>
       </tr>
     <% end %>
+    </tbody>
   </table>
 
   <div class="form-actions">
@@ -73,7 +72,7 @@
 
 <script>
 $(document).ready(function() {
-  $('.video-select-table tr').click(function(event) {
+  $('.video-select-table tbody tr').click(function(event) {
     if (event.target.type !== 'checkbox') {
       $(':checkbox', this).trigger('click');
     }
