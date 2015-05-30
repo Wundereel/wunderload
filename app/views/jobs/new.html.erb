@@ -1,58 +1,82 @@
 <section>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<h1>New Job</h1>
-
-
+<h1>Create a new Wundereel</h1>
 
 <%= simple_form_for(@job) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :title %>
-  <%= f.input :notes %>
-  <%= f.input :music, collection: ['Blues & Bluegrass', 'Jazz', 'Tub thumping'] %>
-  <%= f.input :share_emails, label: "Add emails to share it with (One per line)" %>
-  <%= f.input :names_in_reel, label: "Name the people in this video (One per line)" %>
+  <%= f.input :title, label: "What would you like to call it?" %>
+  <%= f.input :notes, label: "You're the director. What would you like to tell us to do?" %>
+  <%= f.input :music, label: "Add the perfect music", collection: [
+    'happy :)',
+    'yoga studio',
+    'EDM',
+    'rock \‘n\’ rollers',
+    'reggae island',
+    'country bumpkins',
+    'easy does it',
+    'punk hair',
+    'jazz club',
+    'latin lover',
+    'disco boogie'
+  ] %>
+  <%= f.input :share_emails, label: "Who should we send it to?  (Be cool, only add emails of close friends.)" %>
+  <%= f.input :names_in_reel, label: "Who are the stars?  People, pets, and places can all get mad props." %>
 
-  <% @videos.values.chunk {
-      |v| Date.parse(v['modified']).strftime("%Y %M")
-    }.sort_by { |k, v| k }.reverse.each do |week, videos| %>
 
-    <h4 class="page-header">
-      <% video_week_start = Date.parse(videos.first['modified']).beginning_of_week %>
-      <% if DateTime.now.beginning_of_week.to_date == video_week_start %>
-        This Week
-      <% elsif DateTime.now.beginning_of_week.to_date - 7.days == video_week_start %>
-        Last Week
-      <% else %>
-        Week of <%= video_week_start.strftime("%B %-d, %Y") %>
-      <% end %>
-    </h4>
-    <% videos.each do |v| %>
-      <div class="checkbox">
-        <label>
-          <%= check_box 'job_files', 'original_path', {multiple: true},  v['path'] %>
-          <span class="video-durastion">
-            <% if v['video_info'] and v['video_info']['duration'] %>
-              <%= Time.at(v['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
-            <% end %>
-          </span>
-          &nbsp;
-          <span class="video-path"
-                title="<%= v['path'].split('/')[0...-1].join('/') + "/" %>"
-          >
-            <%= truncate(v['path'].split('/')[-1], length: 30) %>
-          </span>
-        </label>
-      </div>
+  <h3>Choose raw video files -- more is better, we’ll cut out the junk.</h3>
+
+  <table data-sortable class="table video-select-table">
+    <tr>
+      <th>Name</th>
+      <th>Length</th>
+      <th>Modified</th>
+      <th>Selected</th>
+    </tr>
+    <% @videos.sort_by { |k,v| DateTime.parse(v['modified']).to_i }.reverse.each do |_k,video| %>
+      <tr>
+        <td data-value="<% video['path'].split('/')[-1] %>">
+            <small>
+              <%= truncate(video['path'].split('/')[0...-1].join('/') + "/", length: 40) %>
+            </small>
+            <div>
+              <%= truncate(video['path'].split('/')[-1], length: 30) %>
+            </div>
+        </td>
+        <td>
+          <label for="<%= "select-video-#{video['path']}" %>">
+          <% if video['video_info'] and video['video_info']['duration'] %>
+            <%= Time.at(video['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
+          <% end %>
+        </td>
+        <td data-value="<%= DateTime.parse(video['modified']).to_i %>">
+          <label for="<%= "select-video-#{video['path']}" %>">
+            <%= DateTime.parse(video['modified']).strftime("%-m/%-d/%Y %r") %>
+          </label>
+        </td>
+        <td data-sortable="false">
+          <label for="<%= "select-video-#{video['path']}" %>">
+          <%= check_box 'job_files', 'original_path', {id: "select-video-#{video['path']}", multiple: true},  video['path'] %>
+          </label>
+        </td>
+      </tr>
     <% end %>
-  <% end %>
+  </table>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, "Show me the Wunder!", class: "btn btn-primary"  %>
   </div>
 <% end %>
 
-<%= link_to 'Back', jobs_path %>
-
 </div>
 </section>
+
+<script>
+$(document).ready(function() {
+  $('.video-select-table tr').click(function(event) {
+    if (event.target.type !== 'checkbox') {
+      $(':checkbox', this).trigger('click');
+    }
+  });
+});
+</script>

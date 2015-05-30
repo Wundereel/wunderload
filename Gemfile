@@ -11,6 +11,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+gem 'bower-rails'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'dropbox-sdk'
@@ -19,6 +20,10 @@ gem 'omniauth-dropbox-oauth2'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
+gem 'redis'
+gem 'redis-namespace'
+gem 'resque'
+gem 'resque-scheduler'
 gem 'simple_form'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 group :development do

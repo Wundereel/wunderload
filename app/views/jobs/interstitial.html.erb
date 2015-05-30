@@ -1,0 +1,34 @@
+<section>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    I am the very model of a modern insterstitial.
+    <form action="" method="GET">
+      <button
+        id="loading-button"
+        disabled
+        href=""
+        class="btn btn-primary"
+        data-complete-text="continue to make your reel!"
+        >
+        Fetching files
+      </button>
+    </form>
+  </div>
+</section>
+
+<script>
+function checkFilesReady() {
+  $.get('/api/v1/user_files')
+  .done( function( data, textStatus, jqXHR )  {
+    if(jqXHR.status == 200) {
+      $('#loading-button').prop('disabled', false)
+      $('#loading-button').button('complete');
+    }
+    else {
+      setTimeout( checkFilesReady, 2000 );
+    }
+
+  })
+}
+
+setTimeout( checkFilesReady, 2000 );
+</script>

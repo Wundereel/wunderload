@@ -44,10 +44,16 @@ module DropboxUtility
   def sync_job_files(job)
     client = uploader_client
 
-    client.put_file job_folder(job) + "SPEC - Reel #{job.id}.txt", job_description(job)
+    client.put_file(
+      job_folder(job) + "SPEC - Reel #{job.id}.txt",
+      job_description(job)
+    )
 
     job.files.each do |file|
-      client.add_copy_ref job_folder(job) + file.original_path.split('/')[-1], file.copy_ref
+      client.add_copy_ref(
+        job_folder(job) + file.original_path.split('/')[-1],
+        file.copy_ref
+      )
     end
   end
 
@@ -57,13 +63,18 @@ module DropboxUtility
   end
 
   def videos_for_user(user)
-    all_video(user.dropbox_token)
+    all_video(user.dropbox_token)[:files]
   end
 
   def all_video(token)
-    all_delta(token).select do |_name, meta|
+    meta_response, files = all_delta(token).values_at :meta, :files
+    files = files.select do |_name, meta|
       !meta['is_dir'] && meta['mime_type'] =~ %r{^video/}
     end
+    {
+      meta: meta_response,
+      files: files
+    }
   end
 
   def all_delta(token) # rubocop:disable Metrics/MethodLength
@@ -90,6 +101,66 @@ module DropboxUtility
         files[file] = meta
       end
     end
-    files
+    {
+      meta: {
+        cursor: cursor
+      },
+      files: files
+    }
+  end
+end
+
+def delta_for(token, cursor)
+  session = DropboxOAuth2Session.new token
+  Dropbox.parse_response(
+    session.do_post(
+      '/delta',
+      'include_media_info': true,
+      cursor: cursor
+    )
+  )
+end
+
+def update_user(dropbox_uid, token)
+  tree = DBCache.tree(dropbox_uid)
+  cursor = DBCache.cursor(dropbox_uid)
+
+  has_more = true
+  while has_more
+    result = delta_for token, cursor
+
+    tree = {} if result['reset']
+
+    cursor = result['cursor']
+    has_more = result['has_more']
+
+    DBCache.store(
+      dropbox_uid,
+      update(result['entries'], tree),
+      cursor
+    )
+  end
+end
+
+def update(entries, tree)
+  entries.reduce(tree) do |new_tree, entry|
+    apply_delta(new_tree, entry)
+  end
+end
+
+def apply_delta(tree, entry)
+  path, metadata = entry
+  if metadata.nil?
+    # Any entries that start with the deleted path get removed
+    tree.reject { |k, _v| k.index(path) == 0 }
+  elsif metadata['is_dir']
+    # We don't actually care about caching folders. If we have a file at that
+    # spot, it's been replaced by a folder. Drop it like it's cold.
+    tree.reject { |k, _v| k == path }
+  else
+    hsh = {}
+    hsh[path] = metadata
+
+    tree.merge(hsh)
   end
 end

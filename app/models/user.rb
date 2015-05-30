@@ -42,13 +42,16 @@ class User < ActiveRecord::Base
   end
 
   def dropbox_token
-    auth = authentications
-      .joins(:authentication_provider)
-      .where( authentication_providers: { name: 'dropbox_oauth2' })
-      .first
-      .token
-
+    auth_for_provider('dropbox_oauth2').token
   end
+
+  def auth_for_provider(provider)
+    authentications
+      .joins(:authentication_provider)
+      .where(authentication_providers: { name: provider })
+      .first
+  end
+
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

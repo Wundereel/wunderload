@@ -17,8 +17,18 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    @job = current_user.jobs.build
-    @videos = DropboxUtility.videos_for_user current_user
+
+    if _files_ready?
+      @job = current_user.jobs.build
+      @videos = DropboxCache.instance.get_tree current_user.auth_for_provider('dropbox_oauth2').uid
+    else
+      DeltaLoadDropboxJob.perform_later(
+        current_user.auth_for_provider('dropbox_oauth2').uid,
+        current_user.dropbox_token
+      )
+      # return render json: 'lol'
+      render 'interstitial'
+    end
   end
 
   # GET /jobs/1/edit
@@ -102,5 +112,12 @@ class JobsController < ApplicationController
 
   def job_file_sources
     params.require(:job_files).require('original_path').select { |a| a != '0' }
+  end
+
+  def _files_ready?
+    # TODO: check freshness of files
+    dropbox_auth = current_user.auth_for_provider('dropbox_oauth2')
+
+    DropboxCache.instance.settled?(dropbox_auth.uid)
   end
 end
