@@ -50,6 +50,7 @@ class JobsController < ApplicationController
     end
 
     DropboxUtility.sync_job_files(@job)
+    WundereelNotifications.loaded(@job).deliver
     # TODO error handling pre sync
 
     respond_to do |format|
