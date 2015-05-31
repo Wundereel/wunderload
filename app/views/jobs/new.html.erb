@@ -6,25 +6,29 @@
   <%= f.error_notification %>
 
   <%= f.input :title, label: "What would you like to call it?" %>
-  <%= f.input :notes, label: "You're the director. What would you like to tell us to do?" %>
+  <%= f.input :notes, label: "You're the director. Tell us what you want to see!" %>
   <%= f.input :music, label: "Add the perfect music", collection: [
-    'happy :)',
-    'yoga studio',
+    'Happy :)',
+    'Yoga studio',
     'EDM',
-    'rock \‘n\’ rollers',
-    'reggae island',
-    'country bumpkins',
-    'easy does it',
-    'punk hair',
-    'jazz club',
-    'latin lover',
-    'disco boogie'
+    "Rock \‘n\’ rollers",
+    'Reggae island',
+    'Country bumpkins',
+    'Easy does it',
+    'Punk hair',
+    'Jazz club',
+    'Latin lover',
+    'Disco boogie'
   ] %>
   <%= f.input :share_emails, label: "Who should we send it to?  (Be cool, only add emails of close friends.)" %>
-  <%= f.input :names_in_reel, label: "Who are the stars?  People, pets, and places can all get mad props." %>
+  <%= f.input :names_in_reel, label: "Who stars in this film? People, pets, and places can all get mad props." %>
 
 
   <h3>Choose raw video files -- more is better, we’ll cut out the junk.</h3>
+
+  <div class="form-group has-error">
+    <%= f.error :files %>
+  </div>
 
   <table data-sortable class="table video-select-table">
     <thead>
@@ -32,7 +36,7 @@
         <th>Name</th>
         <th>Length</th>
         <th>Modified</th>
-        <th>Selected</th>
+        <th>Select</th>
       </tr>
     </thead>
     <tbody>
@@ -55,7 +59,17 @@
           <%= DateTime.parse(video['modified']).strftime("%-m/%-d/%Y %r") %>
         </td>
         <td data-sortable="false">
-          <%= check_box 'job_files', 'original_path', {id: "select-video-#{video['path']}", multiple: true},  video['path'] %>
+          <%= check_box(
+            'job_files',
+            'original_path',
+            {
+              id: "select-video-#{video['path']}",
+              multiple: true,
+              checked: @job.files.any? { |v| v['original_path'] == video['path'] }
+            },
+            video['path']
+            )
+          %>
         </td>
       </tr>
     <% end %>

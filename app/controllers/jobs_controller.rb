@@ -49,17 +49,17 @@ class JobsController < ApplicationController
       )
     end
 
-    DropboxUtility.sync_job_files(@job)
-    WundereelNotifications.loaded(@job).deliver
-    # TODO error handling pre sync
-
     respond_to do |format|
       if @job.save
+        DropboxUtility.sync_job_files(@job)
+        WundereelNotifications.loaded(@job).deliver_later
+
         format.html do
-          redirect_to @job, notice: 'Job was successfully created.'
+          redirect_to @job, notice: 'Nice job!  Your work here is done.'
         end
         format.json { render :show, status: :created, location: @job }
       else
+        @videos = DropboxCache.instance.get_tree current_user.auth_for_provider('dropbox_oauth2').uid
         format.html { render :new }
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end

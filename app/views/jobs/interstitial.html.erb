@@ -1,17 +1,20 @@
 <section>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    I am the very model of a modern insterstitial.
-    <form action="" method="GET">
-      <button
-        id="loading-button"
-        disabled
-        href=""
-        class="btn btn-primary"
-        data-complete-text="continue to make your reel!"
-        >
-        Fetching files
-      </button>
-    </form>
+    <div class="text-center">
+      <h3 id="interstitial-head">Mind if we take a hot second to freshen up?</h3>
+      <h4 id="interstitial-subhead">We're checking for new videos.  If this is our first time together, it may take a moment.</h4>
+      <form action="" method="GET">
+        <button
+          id="loading-button"
+          disabled
+          href=""
+          class="btn btn-primary collapse"
+          data-complete-text="Start my reel!"
+          >
+          Fetching files...
+        </button>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -22,6 +25,9 @@ function checkFilesReady() {
     if(jqXHR.status == 200) {
       $('#loading-button').prop('disabled', false)
       $('#loading-button').button('complete');
+      $('#loading-button').show();
+      $('#interstitial-head').text("All set.  Let's do this!");
+      $('#interstitial-subhead').text(" ");
     }
     else {
       setTimeout( checkFilesReady, 2000 );
