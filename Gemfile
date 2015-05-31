@@ -11,6 +11,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+gem 'aasm'
 gem 'bower-rails'
 gem 'bootstrap-sass'
 gem 'devise'

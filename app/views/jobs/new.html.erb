@@ -1,30 +1,11 @@
 <section>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<h1>Create a new Wundereel</h1>
+<h1 class="page-header">Create a new Wundereel</h1>
 
 <%= simple_form_for(@job) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :title, label: "What would you like to call it?" %>
-  <%= f.input :notes, label: "You're the director. Tell us what you want to see!" %>
-  <%= f.input :music, label: "Add the perfect music", collection: [
-    'Happy :)',
-    'Yoga studio',
-    'EDM',
-    "Rock \‘n\’ rollers",
-    'Reggae island',
-    'Country bumpkins',
-    'Easy does it',
-    'Punk hair',
-    'Jazz club',
-    'Latin lover',
-    'Disco boogie'
-  ] %>
-  <%= f.input :share_emails, label: "Who should we send it to?  (Be cool, only add emails of close friends.)" %>
-  <%= f.input :names_in_reel, label: "Who stars in this film? People, pets, and places can all get mad props." %>
-
-
-  <h3>Choose raw video files -- more is better, we’ll cut out the junk.</h3>
+  <h3>Choose raw video files &mdash; more is better, we’ll cut out the junk.</h3>
 
   <div class="form-group has-error">
     <%= f.error :files %>
@@ -75,6 +56,24 @@
     <% end %>
     </tbody>
   </table>
+
+    <%= f.input :title, label: "What would you like to call it?" %>
+    <%= f.input :names_in_reel, label: "Who stars in this film? People, pets, and places can all get mad props." %>
+    <%= f.input :music, label: "Add the perfect music", collection: [
+      'Happy :)',
+      'Yoga studio',
+      'EDM',
+      "Rock \‘n\’ rollers",
+      'Reggae island',
+      'Country bumpkins',
+      'Easy does it',
+      'Punk hair',
+      'Jazz club',
+      'Latin lover',
+      'Disco boogie'
+    ] %>
+    <%= f.input :notes, label: "You're the director. Tell us what you want to see!" %>
+    <%= f.input :share_emails, label: "Who should we send it to?  (Be cool, only add emails of close friends.)" %>
 
   <div class="form-actions">
     <%= f.button :submit, "Show me the Wunder!", class: "btn btn-primary"  %>

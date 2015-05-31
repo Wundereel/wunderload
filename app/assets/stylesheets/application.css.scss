@@ -20,18 +20,3 @@
   text-align: center;
   padding: 40px 15px;
 }
-
-
-.video-select-table tr {
-  height: 1px;
-}
-.video-select td, .video-select th {
-  height: 100%;
-}
-.video-select-table td > label {
-  display: block;
-  min-height: 100%; /* for the latest browsers which support min-height */
-  height: auto !important; /* for newer IE versions */
-  height: 100%;
-  font-weight: inherit;
-}
