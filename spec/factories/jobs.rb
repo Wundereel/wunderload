@@ -7,10 +7,11 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  title         :string
-#  notes         :string
+#  notes         :text
 #  music         :string
 #  names_in_reel :text
 #  share_emails  :text
+#  status        :integer          default(0)
 #
 
 FactoryGirl.define do

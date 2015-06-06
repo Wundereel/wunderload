@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150523171134) do
+ActiveRecord::Schema.define(version: 20150606194922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,16 +37,33 @@ ActiveRecord::Schema.define(version: 20150523171134) do
 
   create_table "jobs", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "title"
     t.text     "notes"
     t.string   "music"
     t.text     "names_in_reel"
     t.text     "share_emails"
+    t.integer  "status",        default: 0
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "job_id"
+    t.string   "state"
+    t.string   "stripe_id"
+    t.string   "stripe_token"
+    t.date     "card_expiration"
+    t.text     "error"
+    t.integer  "fee_amount"
+    t.integer  "amount"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "email"
+  end
+
+  add_index "purchases", ["job_id"], name: "index_purchases_on_job_id", using: :btree
 
   create_table "user_authentications", force: :cascade do |t|
     t.integer  "user_id"
@@ -84,4 +101,5 @@ ActiveRecord::Schema.define(version: 20150523171134) do
 
   add_foreign_key "job_files", "jobs"
   add_foreign_key "jobs", "users"
+  add_foreign_key "purchases", "jobs"
 end

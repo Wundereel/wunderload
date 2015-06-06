@@ -1,0 +1,3 @@
+<%= form_for(@job, url: jobs_create_url(@job.id)) do |f| %>
+  <%= render partial: @job.next_step, locals: { f: f } %>
+<% end  %>

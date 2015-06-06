@@ -1,0 +1,34 @@
+
+<section>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script>
+    $(function() {
+      StripeCheckout.configure({
+        key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+        token: function(token) {
+          var $form = $('#checkoutForm');
+          $form.find('[name=stripeToken]').val(token.id)
+          $form.find('[name=stripeEmail]').val(token.email)
+          $form.submit()
+        }
+      })
+      .open({
+        name: 'Wundereel',
+        description: 'One fancy Wundereel',
+        amount: 10000
+      });
+    })
+  </script>
+
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <h1 class="page-header">Drop some dimes</h1>
+
+
+  <% @job.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
+  <%= form_tag create_payment_jobs_create_path(@job), id: 'checkoutForm' do %>
+    <input type="hidden" name="stripeToken">
+    <input type="hidden" name="stripeEmail">
+  <% end %>
+</section>

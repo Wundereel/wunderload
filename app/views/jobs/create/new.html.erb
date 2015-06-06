@@ -1,0 +1,76 @@
+<section>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<h1 class="page-header">Create a new Wundereel</h1>
+
+<%= simple_form_for(@job, url: create_videos_jobs_create_index_url) do |f| %>
+  <%= f.error_notification %>
+
+  <h3>Choose raw video files &mdash; more is better, we’ll cut out the junk.</h3>
+
+  <div class="form-group has-error">
+    <%= f.error :files %>
+  </div>
+
+  <table data-sortable class="table video-select-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Length</th>
+        <th>Modified</th>
+        <th>Select</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @videos.sort_by { |k,v| DateTime.parse(v['modified']).to_i }.reverse.each do |_k,video| %>
+      <tr>
+        <td data-value="<% video['path'].split('/')[-1] %>">
+            <small>
+              <%= truncate(video['path'].split('/')[0...-1].join('/') + "/", length: 40) %>
+            </small>
+            <div>
+              <%= truncate(video['path'].split('/')[-1], length: 30) %>
+            </div>
+        </td>
+        <td>
+          <% if video['video_info'] and video['video_info']['duration'] %>
+            <%= Time.at(video['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
+          <% end %>
+        </td>
+        <td data-value="<%= DateTime.parse(video['modified']).to_i %>">
+          <%= DateTime.parse(video['modified']).strftime("%-m/%-d/%Y %r") %>
+        </td>
+        <td data-sortable="false">
+          <%= check_box(
+            'job_files',
+            'original_path',
+            {
+              id: "select-video-#{video['path']}",
+              multiple: true,
+              checked: @job.files.any? { |v| v['original_path'] == video['path'] }
+            },
+            video['path']
+            )
+          %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Show me the Wunder!", class: "btn btn-primary"  %>
+  </div>
+<% end %>
+
+</div>
+</section>
+
+<script>
+$(document).ready(function() {
+  $('.video-select-table tbody tr').click(function(event) {
+    if (event.target.type !== 'checkbox') {
+      $(':checkbox', this).trigger('click');
+    }
+  });
+});
+</script>
