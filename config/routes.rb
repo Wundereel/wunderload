@@ -1,10 +1,10 @@
-require "resque_web"
+require 'resque_web'
 
 Rails.application.routes.draw do
-  mount ResqueWeb::Engine => "/resque_web"
+  mount ResqueWeb::Engine => '/resque_web'
   resources :jobs
   resource :jobs, only: [:show] do
-    resources :create, controller: "jobs/create", only: [:new] do
+    resources :create, controller: 'jobs/create', only: [:new] do
       collection do
         post :create_videos
         patch :create_videos
@@ -20,10 +20,9 @@ Rails.application.routes.draw do
     end
   end
 
-
   root to: 'visitors#job_start'
-  devise_for :users, :controllers => {
-    :omniauth_callbacks => "users/omniauth_callbacks"
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
   namespace :api do
     namespace :v1 do
