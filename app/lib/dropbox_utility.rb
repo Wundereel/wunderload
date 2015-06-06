@@ -30,7 +30,7 @@ module DropboxUtility
   end
 
   def job_folder(job)
-    "/wundereel/#{job.user.id} #{job.user.name}/#{job.id} #{job.title}/"
+    "/wunderloader/#{job.user.id} #{job.user.name}/#{job.id} #{job.title}/"
   end
 
   def client_from_token(token)
