@@ -23,6 +23,8 @@ module Wunderload
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
 
+    config.middleware.use Rack::SslEnforcer, :except_environments => 'development'
+
     config.autoload_paths << Rails.root.join('lib')
 
     # Settings in config/environments/* take precedence over those specified here.
