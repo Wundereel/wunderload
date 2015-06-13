@@ -38,14 +38,21 @@ module Jobs
     def create_videos
       @job = current_user.jobs.create
 
+      db_uid = current_user.auth_for_provider('dropbox_oauth2').uid
+
+      total_size = 0
       job_file_sources.each do |original_path|
+        file_size = DropboxCache.instance.file_size_from_path(db_uid, original_path.downcase)
         @job.files.build(
           original_path: original_path,
           copy_ref: DropboxUtility.copy_ref_from_path(
             current_user.dropbox_token, original_path
-          )
+          ),
+          file_size: file_size
         )
+        total_size += file_size
       end
+      @job.update file_size: total_size
 
       if @job.may_add_videos?
         @job.add_videos!
@@ -61,6 +68,8 @@ module Jobs
     end
 
     def create_information
+      return redirect_right_step unless @job.videos_added?
+
       @job.attributes = job_params
 
       if @job.may_add_information?
@@ -76,6 +85,7 @@ module Jobs
     end
 
     def create_payment
+      return redirect_right_step unless @job.information_added?
       purchase = @job.build_purchase(
         amount: 100_00,
         email: purchase_params[:stripeEmail],
@@ -90,6 +100,7 @@ module Jobs
         @job.add_payment!
         DropboxUtility.sync_job_files(@job)
         WundereelNotifications.loaded(@job).deliver_later
+        PushToGoogleSheetJob.perform_later @job.id
         redirect_to @job, notice: 'Nice job!  Your work here is done.'
       else
         render :add_payment

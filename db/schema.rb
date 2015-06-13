@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606194922) do
+ActiveRecord::Schema.define(version: 20150613182927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,22 +29,24 @@ ActiveRecord::Schema.define(version: 20150606194922) do
     t.string   "copy_ref"
     t.string   "original_path"
     t.string   "target_path"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "file_size",     limit: 8
   end
 
   add_index "job_files", ["job_id"], name: "index_job_files_on_job_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "title"
     t.text     "notes"
     t.string   "music"
     t.text     "names_in_reel"
     t.text     "share_emails"
-    t.integer  "status",        default: 0
+    t.integer  "status",                  default: 0
+    t.integer  "file_size",     limit: 8
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree

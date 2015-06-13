@@ -1,18 +1,52 @@
 
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <section>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-  <h1 class="page-header">Drop some dimes</h1>
+  <div id="pre-pay" class="text-center">
+    <h3> Drop some dimes</h1>
 
-  <p>We're ready to take payment and get your Wundereel</p>
+    <h4>We're ready to take payment and get your Wundereel</h4>
+
+    <button id="pay-btn" class="btn btn-primary">Pay</button>
+  </div>
+  <div id="post-pay" class="text-center hidden">
+    <h3 class="page-header">
+      Awesome. Give us a sec to get that going.
+    </h3>
+  </div>
 
 
   <%= form_tag create_payment_jobs_create_path(@job), id: 'checkoutForm' do %>
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-    data-name="Wundereel"
-    data-description="1 Fancy Wundereel"
-    data-amount="10000">
-  </script>
+    <input type="hidden" name="stripeToken">
+    <input type="hidden" name="stripeEmail">
   <% end %>
 </section>
+
+
+<script>
+  $(function() {
+    var handler = StripeCheckout.configure({
+    key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+      token: function(token) {
+        $('#pre-pay').addClass('hidden');
+        $('#post-pay').removeClass('hidden');
+        var $form = $('#checkoutForm');
+        $form.find('[name=stripeToken]').val(token.id)
+        $form.find('[name=stripeEmail]').val(token.email)
+        $form.submit()
+      }
+    })
+
+    $('#pay-btn').click( function(e) {
+      handler.open({
+        name: 'Wundereel',
+        description: 'One fancy Wundereel',
+        amount: 10000
+      });
+      e.preventDefault();
+    })
+    $(window).on('popstate', function() {
+      handler.close();
+    });
+  })
+</script>

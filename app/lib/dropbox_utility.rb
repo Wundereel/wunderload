@@ -26,6 +26,8 @@ module DropboxUtility
       #{job.names_in_reel}
       Share Friends:
       #{job.share_emails}
+      Video File Size:
+      #{job.file_size}
     DESC
   end
 
@@ -49,12 +51,19 @@ module DropboxUtility
     #   job_description(job)
     # )
 
+    total_size = 0
     job.files.each_with_index do |file, i|
+      $stderr.puts file
+      total_size += file.file_size
       client.add_copy_ref(
         job_folder(job) + "#{i} - " + file.original_path.split('/')[-1],
         file.copy_ref
       )
     end
+
+    {
+      total_size: total_size
+    }
   end
 
   def copy_ref_from_path(token, path)

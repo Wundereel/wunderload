@@ -36,6 +36,15 @@ class DropboxCache
     end
   end
 
+  def file_size_from_path(dropbox_uid, original_path)
+    files = JSON.parse client.get("#{dropbox_uid}:files") || "{}"
+    if files[original_path].nil?
+      0
+    else
+      files[original_path]['bytes']
+    end
+  end
+
   def update_user(dropbox_uid, token)
     tree = get_tree(dropbox_uid) || {}
     cursor = get_cursor(dropbox_uid)
