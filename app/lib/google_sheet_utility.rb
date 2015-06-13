@@ -67,8 +67,6 @@ module GoogleSheetUtility
 
     check_schema!(ws)
 
-    puts job_to_row(job)
-
     target_row = ws.num_rows + 1
     job_to_row(job).each_with_index do |v, i|
       ws[target_row, i + 1] = v
