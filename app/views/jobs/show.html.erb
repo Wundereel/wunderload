@@ -6,8 +6,27 @@
 
     </div>
     <div class="text-center">
-      <p>We'll send your Wundereel within 48 hours.</p>
+      <p>You’ll receive your Wundereel within 48 hours.</p>
       <p>Questions? <a href="mailto:support@wundereel.com">support@wundereel.com</a></p>
+    </div>
+
+    <div class="text-center">
+      <div style="margin-top:40px; display: inline-block; text-align: left;">
+        <p>We’ll email your order details in a jif. But they’re right below if you just can’t wait that long.</p>
+        <p>Wundereel number: <%= @job.id %></p>
+        <p>Created At: <%= @job.purchase.created_at %></p>
+        <p>Contact Email: <%= @job.user.email %></p>
+        <p>Paid: <%= number_to_currency(@job.purchase.amount/(100.to_f)) %></p>
+      </div>
+    </div>
+
+    <div class="text-center" style="margin-top: 2em;">
+      <%= link_to(
+          "Create Another Wundereel",
+          new_jobs_create_path,
+          { class: "btn btn-primary btn-lg"}
+        )
+      %>
     </div>
   </div>
 </section>

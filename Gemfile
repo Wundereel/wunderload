@@ -8,6 +8,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 group :development, :test do
   gem 'byebug'
+  gem "letter_opener"
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
@@ -19,6 +20,7 @@ gem 'chosen-rails'
 gem 'devise'
 gem 'dropbox-sdk'
 gem 'google_drive'
+gem 'maildown'
 gem 'omniauth'
 gem 'omniauth-dropbox-oauth2'
 gem 'pg'

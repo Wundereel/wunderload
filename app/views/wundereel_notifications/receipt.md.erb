@@ -1,0 +1,37 @@
+**Thank you for ordering Wundereel number:  <%= @job.id %>**
+
+
+Dear Wundereeler
+
+We received your order, and are excited to make this Wundereel for you. You should expect to see the final production in less than 48 hours.
+
+Your order details are listed below. If you have any questions, please just reply to this email. Have a Wunderful day!
+
+The Wundereel Team
+
+
+**Wundereel Spec: <%= @job.title %>**
+
+Your Wundereel will be created from <% @job.files.length %> raw video files.
+
+<% if !@job.music.blank? %> It will be set to <%= @job.music %> tunes. <% end %>
+
+<% if !@job.names_in_reel.blank? %> Credits will include: <%= @job.names_in_reel %> <% end %>
+
+Once ready, we will share your Wundereel with <%= @job.share_emails.blank? ? 'just you' : @job.share_emails %>
+
+<% unless @job.notes.blank? %>
+You gave the following notes to your editors:
+<% @job.notes %>
+<% end %>
+
+
+Wundereel number:  <%= @job.id %>
+
+Created At: <%= @job.purchase.created_at %>
+
+Created:  mm/dd/yyyy HH:MM xM
+
+Contact Email: <%= @job.user.email %>
+
+Paid: <%= number_to_currency(@job.purchase.amount/(100.to_f)) %></p>

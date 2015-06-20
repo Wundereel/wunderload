@@ -103,6 +103,7 @@ module Jobs
         @job.add_payment!
         DropboxUtility.sync_job_files(@job)
         WundereelNotifications.loaded(@job).deliver_later
+        WundereelNotifications.receipt(@job).deliver_later
         PushToGoogleSheetJob.perform_later @job.id
         redirect_to @job, notice: 'Nice job!  Your work here is done.'
       else

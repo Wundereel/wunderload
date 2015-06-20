@@ -229,8 +229,11 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.5.0)
+    kramdown (1.7.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     listen (2.10.1)
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
@@ -244,6 +247,9 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    maildown (1.0.4)
+      kramdown
+      rails (>= 4.0.0)
     memoist (0.12.0)
     method_source (0.8.2)
     mime-types (2.6.1)
@@ -488,6 +494,8 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  letter_opener
+  maildown
   omniauth
   omniauth-dropbox-oauth2
   pg

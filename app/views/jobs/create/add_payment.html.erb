@@ -5,7 +5,7 @@
   <div id="pre-pay" class="text-center">
     <h3> Drop some dimes</h1>
 
-    <h4>We're ready to take payment and get your Wundereel</h4>
+    <h4>We’re ready to take payment and make your Wundereel</h4>
 
     <button id="pay-btn" class="btn btn-primary">Pay</button>
   </div>
@@ -41,7 +41,7 @@
       handler.open({
         name: 'Wundereel',
         description: 'One fancy Wundereel',
-        amount: @WUNDEREEL_PRICE
+        amount: <%= @WUNDEREEL_PRICE %>
       });
       e.preventDefault();
     })
