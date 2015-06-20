@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
     authentications
       .joins(:authentication_provider)
       .where(authentication_providers: { name: provider })
+      .order(updated_at: :desc)
       .first
   end
 
