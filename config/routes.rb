@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     end
   end
 
+  authenticated :user do
+    get '/db_thumb/*filepath', to: 'dropbox_thumb#get', as: 'db_thumb', :constraints => { :filepath => /.*/ }
+  end
+
   root to: 'visitors#job_start'
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
