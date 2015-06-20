@@ -14,6 +14,30 @@
           Fetching files...
         </button>
       </form>
+
+      <div
+        id="loading-gif"
+        style="position: relative;
+          padding-bottom: 125%;
+          padding-top: 25px;
+          height: 0;
+          max-width: 480px;
+          margin: auto;
+          margin-top: 1em;"
+      >
+        <iframe
+          src="//giphy.com/embed/BzpaQMVamxrGg?html5=true"
+          style="
+            position: absolute;
+          	top: 0;
+          	left: 0;
+          	width: 100%;
+          "
+          width="480"
+          height="356"
+          frameBorder="0"
+          >
+        </iframe>
     </div>
   </div>
 </section>
@@ -26,6 +50,7 @@ function checkFilesReady() {
       $('#loading-button').prop('disabled', false)
       $('#loading-button').button('complete');
       $('#loading-button').show();
+      $('#loading-gif').hide();
       $('#interstitial-head').text("All set.  Let's do this!");
       $('#interstitial-subhead').text(" ");
     }

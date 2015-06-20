@@ -7,6 +7,8 @@ module Jobs
       @job = Job.find(params[:id])
     end
 
+    @@WUNDEREEL_PRICE = 50_00
+
     def redirect_right_step
       case @job.status
       when 'empty'
@@ -82,12 +84,13 @@ module Jobs
 
     def add_payment
       redirect_right_step unless @job.information_added?
+      @WUNDEREEL_PRICE = @@WUNDEREEL_PRICE
     end
 
     def create_payment
       return redirect_right_step unless @job.information_added?
       purchase = @job.build_purchase(
-        amount: 100_00,
+        amount: @@WUNDEREEL_PRICE,
         email: purchase_params[:stripeEmail],
         stripe_token: purchase_params[:stripeToken]
       )
