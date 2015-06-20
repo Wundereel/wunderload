@@ -15,6 +15,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if authentication
         sign_in_with_existing_authentication(authentication)
       elsif existing_user
+        DropboxCache.instance.clear_user auth_params.uid
         create_authentication_and_sign_in(auth_params, existing_user, provider)
       else
         create_user_and_authentication_and_sign_in(auth_params, provider)

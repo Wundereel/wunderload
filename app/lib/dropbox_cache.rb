@@ -18,6 +18,13 @@ class DropboxCache
       )
     )
   end
+  def clear_user(dropbox_uid)
+    keys = ['files', 'files:settled', 'files:cursor'].map { |a|
+      "#{dropbox_uid}:#{a}"
+    }
+
+    client.del(*keys)
+  end
 
   def get_tree(dropbox_uid)
     JSON.parse client.get("#{dropbox_uid}:files") || "{}"
