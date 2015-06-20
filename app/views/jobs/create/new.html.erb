@@ -11,52 +11,65 @@
     <%= f.error :files %>
   </div>
 
-  <table data-sortable class="table video-select-table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Length</th>
-        <th>Modified</th>
-        <th>Select</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @videos.sort_by { |k,v| DateTime.parse(v['modified']).to_i }.reverse.each do |_k,video| %>
-      <tr>
-        <td data-value="<% video['path'].split('/')[-1] %>">
-            <small>
-              <%= truncate(video['path'].split('/')[0...-1].join('/') + "/", length: 40) %>
-            </small>
-            <div>
-              <%= truncate(video['path'].split('/')[-1], length: 30) %>
-            </div>
-        </td>
-        <td>
-          <% if video['video_info'] and video['video_info']['duration'] %>
-            <%= Time.at(video['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
-          <% end %>
-        </td>
-        <td data-value="<%= DateTime.parse(video['modified']).to_i %>">
-          <%= DateTime.parse(video['modified']).strftime("%-m/%-d/%Y %r") %>
-        </td>
-        <td data-sortable="false">
+    <% @videos.values.chunk {
+      |v| Date.parse(v['modified']).strftime("%Y %M")
+    }.sort_by { |k, v| k }.reverse.each do |week, videos| %>
+
+      <div class="clearfix">
+      <h4 class="page-header">
+        <% video_week_start = Date.parse(videos.first['modified']).beginning_of_week %>
+        <% if DateTime.now.beginning_of_week.to_date == video_week_start %>
+          This Week
+        <% elsif DateTime.now.beginning_of_week.to_date - 7.days == video_week_start %>
+          Last Week
+        <% else %>
+          Week of <%= video_week_start.strftime("%B %-d, %Y") %>
+        <% end %>
+      </h4>
+      <% videos.each do |v| %>
+        <% is_selected =@job.files.any? { |video| v['original_path'] == video['path'] } %>
+
+        <div
+          class="video-card<%= is_selected ? " is-selected" : ""%>"
+          title="<%= v['path'] %>"
+        >
           <%= check_box(
             'job_files',
             'original_path',
             {
-              id: "select-video-#{video['path']}",
+              id: "select-video-#{v['path']}",
               multiple: true,
-              checked: @job.files.any? { |v| v['original_path'] == video['path'] }
+              checked: is_selected,
+              class: 'hidden'
             },
-            video['path']
-            )
-          %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+            v['path']
+          ) %>
+          <div class="video-card__thumbnail">
+            <div class="video-card__thumbnail-frame">
+              <img src="<%= db_thumb_path v['path'] %>" >
+            </div>
+            <div class="video-card__thumbnail-duration">
+              <% if v['video_info'] and v['video_info']['duration'] %>
+                <%= Time.at(v['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
+              <% end %>
+            </div>
+          </div>
 
+          <div class="video-card__thumbnail-caption">
+            <small>
+              <%= v['path'].split('/')[0...-1].join('/') + "/" %>
+            </small>
+            <div>
+              <%= truncate(v['path'].split('/')[-1], length: 30) %>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+      </div>
+    <% end %>
+
+  <br />
   <div class="form-actions">
     <%= f.button :submit, "Show me the Wunder!", class: "btn btn-primary"  %>
   </div>
@@ -67,6 +80,11 @@
 
 <script>
 $(document).ready(function() {
+  $('.video-card').click(function(event) {
+    var $card  = $(event.currentTarget);
+    $card.toggleClass('is-selected');
+    $card.find(':checkbox').each(function () { this.checked = !this.checked; });
+  });
   $('.video-select-table tbody tr').click(function(event) {
     if (event.target.type !== 'checkbox') {
       $(':checkbox', this).trigger('click');
