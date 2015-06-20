@@ -17,7 +17,7 @@
 class Job < ActiveRecord::Base
   belongs_to :user
   has_many :files, class_name: 'JobFile', dependent: :destroy
-  has_one :purchase
+  has_one :purchase, dependent: :destroy
   accepts_nested_attributes_for :files
 
   # validate :files_not_empty, on: [:add_videos, :add_info]
