@@ -3,6 +3,9 @@
     <div class="text-center">
       <h3 id="interstitial-head">Mind if we take a hot second to freshen up?</h3>
       <h4 id="interstitial-subhead">We're checking for new videos.  If this is our first time together, it may take a moment.</h4>
+      <div id="progress-notifier" class="hidden" >
+        Read <span id="file-count">0</span> files (<span id="file-size"></span>)
+      </div>
       <form action="" method="GET">
         <button
           id="loading-button"
@@ -46,15 +49,22 @@
 function checkFilesReady() {
   $.get('/api/v1/user_files')
   .done( function( data, textStatus, jqXHR )  {
-    if(jqXHR.status == 200) {
+    if( data.settled ) {
       $('#loading-button').prop('disabled', false)
       $('#loading-button').button('complete');
       $('#loading-button').show();
+
       $('#loading-gif').hide();
+      $('#progress-notifier').hide();
+
       $('#interstitial-head').text("All set.  Let's do this!");
       $('#interstitial-subhead').text(" ");
     }
     else {
+      $('#progress-notifier').removeClass('hidden');
+      $('#file-count').text(data.fileCount);
+      $('#file-size').text(data.fileSize);
+
       setTimeout( checkFilesReady, 2000 );
     }
 

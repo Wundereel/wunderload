@@ -27,7 +27,10 @@ module Jobs
     def new
       if _files_ready?
         @job = current_user.jobs.build
-        @videos = DropboxCache.instance.get_tree current_user.auth_for_provider('dropbox_oauth2').uid
+        @videos = (DropboxCache
+          .instance
+          .get_tree(current_user.auth_for_provider('dropbox_oauth2').uid)
+          )['files']
       else
         DeltaLoadDropboxJob.perform_later(
           current_user.auth_for_provider('dropbox_oauth2').uid,

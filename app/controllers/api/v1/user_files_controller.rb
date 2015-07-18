@@ -3,10 +3,12 @@ class Api::V1::UserFilesController < ApplicationController
   def index
     dropbox_auth = current_user.auth_for_provider('dropbox_oauth2')
 
-    if DropboxCache.instance.settled?(dropbox_auth.uid)
-      head :ok
-    else
-      head :no_content
-    end
+    user_status = DropboxCache.instance.status_for(dropbox_auth.uid)
+    render :json => {
+      currentTime: DateTime.now.to_i,
+      fileCount: user_status[:count],
+      fileSize: ActionController::Base.helpers.number_to_human_size(user_status[:size]),
+      settled: user_status[:settled],
+    }
   end
 end

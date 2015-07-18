@@ -4,8 +4,28 @@ require 'singleton'
 class DropboxCache
   include Singleton
 
+  def status_for(dropbox_uid)
+    keys = ['files', 'files:settled', 'files:cursor'].map { |a|
+      "#{dropbox_uid}:#{a}"
+    }
+    tree, settled, cursor = client.mget keys
+
+    tree = begin JSON.parse(tree) rescue default_tree end
+
+    {
+      files: tree['files'],
+      count: tree['meta']['count'],
+      size: tree['meta']['bytes'],
+      settled: settled == "1" ? true : false,
+      cursor: cursor
+    }
+  end
+  def default_tree
+    { 'files' =>  {}, 'meta' => { 'count' =>  0, 'bytes' => 0}}
+  end
+
   def client
-    @client ||= Redis::Namespace.new(:dropbox_cache)
+    @client ||= Redis::Namespace.new(:dropbox_cache_v2)
   end
 
   def delta_for(token, cursor)
@@ -53,7 +73,10 @@ class DropboxCache
   end
 
   def update_user(dropbox_uid, token)
-    tree = get_tree(dropbox_uid) || {}
+    tree = get_tree(dropbox_uid)
+    if tree.empty?
+      tree = default_tree
+    end
     cursor = get_cursor(dropbox_uid)
 
     scanned = 0
@@ -66,7 +89,7 @@ class DropboxCache
 
       $stderr.puts result.except( 'entries' )
 
-      tree = {} if result['reset']
+      tree = default_tree if result['reset']
       scanned += result['entries'].length
 
       $stderr.puts "Scanned #{scanned} entries"
@@ -96,23 +119,34 @@ class DropboxCache
   end
 
   def apply_delta(tree, entry)
+    # $stderr.puts "called with #{tree.to_json}"
     path, metadata = entry
     if metadata.nil?
       # Any entries that start with the deleted path get removed
-      tree.reject { |k, _v| k.index(path) == 0 }
+      tree['files'].reject! { |k, _v| k.index(path) == 0 }
     elsif metadata['is_dir']
       # We don't actually care about caching folders. If we have a file at that
       # spot, it's been replaced by a folder. Drop it like it's cold.
-      tree.reject { |k, _v| k == path }
+      tree['files'].reject! { |k, _v| k == path }
     else
+
+      # $stderr.puts metadata
+      # $stderr.puts "tree.meta is #{tree['meta'].to_json}"
+      # $stderr.puts "tree.meta.count is #{tree['meta']['count'].to_json}"
+      tree['meta']['count'] += 1
+      tree['meta']['bytes'] += metadata['bytes']
+
       if metadata['mime_type'].index('video') == 0
         hsh = {}
-        hsh[path] = metadata
+        hsh[path] =  metadata.slice('bytes', 'mime_type', 'modified', 'path')
 
-        tree.merge(hsh)
-      else
-        tree
+        unless metadata['video_info'].nil?
+          hsh[path]['duration'] = metadata['video_info']['duration']
+        end
+
+        tree['files'].merge!(hsh)
       end
     end
+    tree
   end
 end

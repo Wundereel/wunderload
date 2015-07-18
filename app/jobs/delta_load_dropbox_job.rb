@@ -10,5 +10,6 @@ class DeltaLoadDropboxJob < ActiveJob::Base
     logger.debug "Arguments are: #{dropbox_uid}, #{token}"
 
     DropboxCache.instance.update_user(dropbox_uid, token)
+    
   end
 end

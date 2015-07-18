@@ -49,8 +49,8 @@
               <img src="<%= db_thumb_path v['path'] %>" >
             </div>
             <div class="video-card__thumbnail-duration">
-              <% if v['video_info'] and v['video_info']['duration'] %>
-                <%= Time.at(v['video_info']['duration']/1000).utc.strftime("%H:%M:%S") %>
+              <% if v['duration'] %>
+                <%= Time.at(v['duration']/1000).utc.strftime("%H:%M:%S") %>
               <% end %>
             </div>
           </div>
