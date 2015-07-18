@@ -103,6 +103,7 @@ GEM
       xpath (~> 2.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    certifi (14.5.14)
     childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
     chosen-rails (1.4.2)
@@ -407,6 +408,9 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sentry-raven (0.14.0)
+      certifi
+      faraday (>= 0.7.6)
     shellany (0.0.1)
     signet (0.6.1)
       addressable (~> 2.3)
@@ -520,6 +524,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
+  sentry-raven
   simple_form
   spring
   spring-commands-rspec

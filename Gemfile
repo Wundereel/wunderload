@@ -32,6 +32,7 @@ gem 'redis-namespace'
 gem 'resque'
 gem 'resque-web', git: 'https://github.com/resque/resque-web.git', require: 'resque_web'
 gem 'resque-scheduler'
+gem 'sentry-raven'
 gem 'simple_form'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 group :development do
