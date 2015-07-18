@@ -33,8 +33,6 @@ Wundereel number:  <%= @job.id %>
 
 Created At: <%= @job.purchase.created_at %>
 
-Created:  mm/dd/yyyy HH:MM xM
-
 Contact Email: <%= @job.user.email %>
 
 Paid: <%= number_to_currency(@job.purchase.amount/(100.to_f)) %></p>
