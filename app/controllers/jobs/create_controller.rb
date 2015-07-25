@@ -103,11 +103,12 @@ module Jobs
       purchase.process!
 
       if @job.may_add_payment?
-        @job.add_payment!
         DropboxUtility.sync_job_files(@job)
         WundereelNotifications.loaded(@job).deliver_later
         WundereelNotifications.receipt(@job).deliver_later
         PushToGoogleSheetJob.perform_later @job.id
+        @job.add_payment!
+        flash[:conversion] = { revenue: ("%.2f" % (purchase.amount/100)), id: purchase.id }
         redirect_to @job, notice: 'Nice job!  Your work here is done.'
       else
         render :add_payment
