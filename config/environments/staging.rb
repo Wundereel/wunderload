@@ -46,7 +46,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :info
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -59,7 +59,7 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
-  config.action_controller.asset_host = 'https://create.wundereel.com'
+  config.action_controller.asset_host = 'https://wunderload-staging.herokuapp.com'
   config.action_mailer.asset_host = config.action_controller.asset_host
 
   # Ignore bad email addresses and do not raise email delivery errors.
