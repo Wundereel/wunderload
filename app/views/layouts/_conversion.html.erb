@@ -1,9 +1,5 @@
 <% if Rails.env.production? then %>
 <script>
-  ga('ec:setAction', 'purchase', {          // Transaction details are provided in an actionFieldObject.
-    'id': '<%= order_id %>',                         // (Required) Transaction id (string).
-    'revenue': '<%= revenue %>'                     // Revenue (currency).
-  });
 </script>
 
 <!-- Facebook Conversion Code for Wunderload Launch Checkout Pixel -->
