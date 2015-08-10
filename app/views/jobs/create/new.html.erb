@@ -1,11 +1,29 @@
+<div style-"text-align: center">
+  <%= image_tag 'wundereel_logo.png' %>
+</div>
 <section>
-  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<h1 class="page-header">Create a new Wundereel</h1>
+  <div class="form-container">
+
+      <div class="form-progress clearfix" style="font-size: 18px;">
+        <div class="clearfix" style="text-align: right;">
+          <span style="display: inline-block; width: 3em; border-bottom: 1px solid black; float: left;">
+            1
+          </span>
+          <span style="display: inline-block; width: 3em; border-bottom: 1px solid lightgray;color: lightgray; float: left">
+            2
+          </span>
+        </div>
+        <div style="text-transform: uppercase">Part One: Choose Your Videos</div>
+      </div>
+
+      <hr></hr>
+
+
 
 <%= simple_form_for(@job, url: create_videos_jobs_create_index_url) do |f| %>
   <%= f.error_notification %>
 
-  <h3>Choose raw video files &mdash; more is better, we’ll cut out the junk.</h3>
+  <h2>Choose raw video files &mdash; more is better, we’ll cut out the junk.</h3>
 
   <div class="form-group has-error">
     <%= f.error :files %>
@@ -29,38 +47,40 @@
       <% videos.each do |v| %>
         <% is_selected =@job.files.any? { |video| v['original_path'] == video['path'] } %>
 
-        <div
-          class="video-card<%= is_selected ? " is-selected" : ""%>"
-          title="<%= v['path'] %>"
-        >
-          <%= check_box(
-            'job_files',
-            'original_path',
-            {
-              id: "select-video-#{v['path']}",
-              multiple: true,
-              checked: is_selected,
-              class: 'hidden'
-            },
-            v['path']
-          ) %>
-          <div class="video-card__thumbnail">
-            <div class="video-card__thumbnail-frame">
-              <img src="<%= db_thumb_path v['path'] %>" >
-            </div>
-            <div class="video-card__thumbnail-duration">
-              <% if v['duration'] %>
-                <%= Time.at(v['duration']/1000).utc.strftime("%H:%M:%S") %>
-              <% end %>
-            </div>
-          </div>
+        <div class="video-card-cell">
+          <div
+            class="video-card<%= is_selected ? " is-selected" : ""%>"
+            title="<%= v['path'] %>"
+          >
 
-          <div class="video-card__thumbnail-caption">
-            <small>
-              <%= v['path'].split('/')[0...-1].join('/') + "/" %>
-            </small>
-            <div>
-              <%= truncate(v['path'].split('/')[-1], length: 30) %>
+            <%= check_box(
+              'job_files',
+              'original_path',
+              {
+                id: "select-video-#{v['path']}",
+                multiple: true,
+                checked: is_selected,
+                class: 'hidden'
+              },
+              v['path']
+            ) %>
+            <div class="video-card__thumbnail">
+              <div class="video-card__thumbnail-frame">
+                <img src="<%= db_thumb_path v['path'] %>" >
+              </div>
+            </div>
+            <div class="video-card__thumbnail-caption">
+              <div class="video-card__thumbnail-duration">
+                <% if v['duration'] %>
+                  <%= Time.at(v['duration']/1000).utc.strftime("%H:%M:%S") %>
+                <% end %>
+              </div>
+              <div class="video-card__thumbnail-filename">
+                <%= truncate(v['path'].split('/')[-1], length: 30) %>
+              </div>
+            </div>
+            <div class="selected-circle">
+              <span class="checkmark glyphicon glyphicon-ok"></span>
             </div>
           </div>
         </div>
@@ -69,9 +89,9 @@
       </div>
     <% end %>
 
-  <br />
+  <hr />
   <div class="form-actions">
-    <%= f.button :submit, "Show me the Wunder!", class: "btn btn-primary"  %>
+    <%= f.button :submit, "Add Some Detail", class: "btn btn-primary"  %>
   </div>
 <% end %>
 

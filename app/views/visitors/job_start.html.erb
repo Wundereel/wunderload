@@ -6,13 +6,10 @@
 
     </div>
     <div class="text-center">
-      <%= link_to(
-          "Sign in with Dropbox",
-          new_jobs_create_path,
-        #  user_omniauth_authorize_path(:dropbox_oauth2),
-          { class: "btn btn-primary btn-lg"}
-        )
-      %>
+      <%= link_to new_jobs_create_path, { class: "btn btn-primary btn-lg"} do %>
+        <%= image_tag "dropbox-logos_dropbox-glyph-white.png", { style: "height: 1em; width: 1em; display: inline;"} %>
+        Sign in with Dropbox
+      <% end %>
     </div>
   </div>
 </section>

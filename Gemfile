@@ -15,6 +15,7 @@ end
 gem 'aasm'
 gem 'bower-rails'
 gem 'bootstrap-sass'
+gem 'bootswatch-rails'
 gem 'compass-rails', github: 'Compass/compass-rails', ref:'3e88f991150ffa39b0a539dffb3326248d18e6ad'
 gem 'chosen-rails'
 gem 'devise'

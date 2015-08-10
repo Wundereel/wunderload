@@ -1,7 +1,22 @@
 
+<div style-"text-align: center">
+  <%= image_tag 'wundereel_logo.png' %>
+</div>
 <section>
-  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-<h1 class="page-header">Finish your Wundereel</h1>
+  <div class="form-container">
+<div class="form-progress clearfix" style="font-size: 18px;">
+  <div class="clearfix" style="text-align: right;">
+    <span style="display: inline-block; width: 3em; border-bottom: 1px solid lightgray; color: lightgray;  float: left;">
+      1
+    </span>
+    <span style="display: inline-block; width: 3em; border-bottom: 1px solid black; float: left">
+      2
+    </span>
+  </div>
+  <div style="text-transform: uppercase">Part Two: Add Some Details</div>
+</div>
+
+<hr></hr>
 
 <%= simple_form_for(@job, url: create_information_jobs_create_url) do |f| %>
   <%= f.error_notification %>
@@ -11,11 +26,13 @@
     label: "What would you like to call it?",
     placeholder: "Ex: Elon’s Bachelor party in Vegas"
   ) %>
+
   <%= f.input(
-    :names_in_reel,
-    label: "Who stars in this film? People, pets, and places can all get mad props.",
-    placeholder: "Ex: Elon Musk; Steve Jobs; Mark Zuckerberg; Bubba the Limo Driver; Jean the blackjack dealer; Las Vegas, NV; Aria Resort & Casino."
+    :notes,
+    label: "Tell us what you want to see:",
+    placeholder: "Ex: Elon is the guy with a blazer on the whole time, so try to focus on him a lot.  Make sure to include the clip of us singing on the plane.  Alcohol is OK, but please keep it classy."
   ) %>
+
   <%= f.input :music, label: "Add the perfect music", collection: [
       'Happy :)',
       'Yoga studio',
@@ -31,17 +48,20 @@
     ],
     input_html: { class: 'chosen-select', 'data-placeholder': 'Choose a genre' }
    %>
+
   <%= f.input(
-    :notes,
-    label: "You're the director. Tell us what you want to see!",
-    placeholder: "Ex: Elon is the guy with a blazer on the whole time, so try to focus on him a lot.  Make sure to include the clip of us singing on the plane.  Alcohol is OK, but please keep it classy."
+    :names_in_reel,
+    label: "Who stars in this film? People, pets, and places can all get mad props.",
+    placeholder: "Ex: Elon Musk; Steve Jobs; Mark Zuckerberg; Bubba the Limo Driver; Jean the blackjack dealer; Las Vegas, NV; Aria Resort & Casino."
   ) %>
+
   <%= f.input(
     :share_emails,
     label: "Who should we send it to?  (Be cool, only add emails of close friends.)",
     placeholder: "Ex: elon.musk@example.com, steve.jobs@example.com"
   ) %>
 
+  <hr />
   <div class="form-actions">
     <%= f.button :submit, "Show me the Wunder!", class: "btn btn-primary"  %>
   </div>
