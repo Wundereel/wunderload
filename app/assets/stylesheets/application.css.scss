@@ -251,3 +251,14 @@
     text-align: right;
   }
 }
+
+
+.control-error-label {
+  @extends .control-label;
+  display: none;
+  color: red;
+}
+
+.has-error .control-error-label {
+  display: inline-block;
+}

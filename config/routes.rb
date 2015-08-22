@@ -20,10 +20,17 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :interested_people, only: [:new, :create] do
+    collection do
+      get :success
+    end
+  end
+
   authenticated :user do
     get '/db_thumb/*filepath', to: 'dropbox_thumb#get', as: 'db_thumb', :constraints => { :filepath => /.*/ }
   end
 
+  get '/interested_signup', to: 'visitors#email_signup', as: 'email_signup_success'
   root to: 'visitors#job_start'
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'

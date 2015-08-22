@@ -21,3 +21,17 @@ $ ->
   $('.chosen-select').chosen
     disable_search_threshold: 15
     allow_single_deselect: true
+
+
+$(document).ready ->
+  $(document).on "ajax:success", "form.new_interested_person", (event, xhr, settings) ->
+    window.location = $(this).data('successUrl')
+
+  $(document).on "ajax:error", "form.new_interested_person", (event, jqxhr, settings, exception) ->
+    $(this)
+      .find('.form-group.interested_person_email .control-error-label')
+      .text("Email #{jqxhr.responseJSON.email[0]}")
+
+    $(this)
+      .find('.form-group.interested_person_email')
+      .addClass('has-error')
