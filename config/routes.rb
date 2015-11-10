@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   end
 
   get '/interested_signup', to: 'visitors#email_signup', as: 'email_signup_success'
+  get '/landing', to: 'visitors#landing', as: 'landing'
   root to: 'visitors#job_start'
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'

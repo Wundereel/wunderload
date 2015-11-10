@@ -100,6 +100,13 @@
    @extend .btn-primary;
    @extend .btn-lg;
    }
+
+.container {
+  &.container-full {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
  // apply styles to HTML elements
  // to make views framework-neutral
  main {
@@ -107,7 +114,6 @@
    // background-color: #eee;
    padding-bottom: 80px;
    width: 100%;
-   margin-top: 51px; // accommodate the navbar
    }
  section {
    @extend .row;
@@ -261,4 +267,33 @@
 
 .has-error .control-error-label {
   display: inline-block;
+}
+
+.navbar-brand {
+  padding: .5em 1em;
+
+  img {
+    max-height: 100%;
+  }
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+.navbar-nav {
+  .btn-primary.btn-lg {
+    color: white;
+  }
+}
+
+
+.jumbotron p {
+  line-height: 1.2em;
+}
+
+.testimonials blockquote {
+  p, footer {
+    font-size: 120%;
+    line-height: 1.2;
+  }
 }
