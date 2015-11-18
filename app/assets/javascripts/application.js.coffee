@@ -35,3 +35,14 @@ $(document).ready ->
     $(this)
       .find('.form-group.interested_person_email')
       .addClass('has-error')
+
+
+  $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup(
+    disableOn: 700,
+    type: 'iframe',
+    mainClass: 'mfp-fade',
+    removalDelay: 160,
+    preloader: false,
+
+    fixedContentPos: false
+  )

@@ -23,6 +23,8 @@
 
  @import "bootswatch/paper/bootswatch";
 
+@import "magnific";
+
  body {
    background-color: rgb(249,249,249);
  }
@@ -283,6 +285,11 @@
 .navbar-nav {
   .btn-primary.btn-lg {
     color: white;
+
+    &:hover {
+      background-color: #0d87e9;
+      color: white;
+    }
   }
 }
 
