@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get '/db_thumb/*filepath', to: 'dropbox_thumb#get', as: 'db_thumb', :constraints => { :filepath => /.*/ }
   end
 
+  get '/home', to: 'visitors#home', as: 'home'
   get '/interested_signup', to: 'visitors#email_signup', as: 'email_signup_success'
   get "/l/*id" => 'landing#show', as: :landing, format: false
 

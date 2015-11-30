@@ -1,3 +1,3 @@
 class VisitorsController < ApplicationController
-  layout 'bare', only: [:job_start, :email_signup, :landing]
+  layout 'bare', only: [:job_start, :email_signup, :landing, :home]
 end
