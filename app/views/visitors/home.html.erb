@@ -1,0 +1,80 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">  <%= image_tag 'wundereel_logo.png' %></a>
+
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#in-action">See Us In Action</a></li>
+        <li>
+          <%= link_to root_path do %>
+            Get Started
+          <% end %>
+        </li>
+      </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</nav>
+<div class="jumbotron" style="background-position: center; background-image: url(<%= image_url 'wave_surfer.jpg' %>)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-lg-offset-2">
+        <h1>Turn raw video into highlights</h1>
+        <p>Your iPhone or GoPro video, professionally edited for $40</p>
+        <p><a class="btn btn-primary btn-lg popup-youtube" href="http://www.youtube.com/watch?v=0O2aH4XLbto" role="button">Watch how Wundereel works »</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-6 col-sm-12">
+      <div class="panel panel-default" style="padding-bottom: 1em">
+        <%= image_tag 'landing/icons/waterski-80.png', { class: 'center-block'} %>
+        <h4 style="text-align: center">Share highlights with friends</h4>
+        <ul>
+          <li>Turn your most amazing videos into highlight reels, perfect for sharing on Facebook</li>
+          <li>You tell your editor exactly what you want to see</li>
+          <li>Upload raw video from Dropbox, or we'll send you a USB drive</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <div class="panel panel-default" style="padding-bottom: 1em">
+        <%= image_tag 'landing/icons/edit_film_scissors-80.png', { class: 'center-block'} %>
+        <h4 style="text-align: center">Professional Editors in Los Angeles</h4>
+        <ul>
+          <li>Professional editors do the work, to save you time and make sure your reel is perfect. </li>
+          <li>Customize your reel with names, places, and music. </li>
+          <li>100% money-back satisfaction guarantee.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" >
+      <div style="margin-top: 1em" >
+        <%= link_to root_path, { class: "btn btn-primary btn-lg btn-block"} do %>
+          Get Started
+        <% end %>
+      </div>
+    </div>
+
+
+  </div>
+
+  <hr>
+
+  <footer>
+    <p>&copy; Wundereel 2015</p>
+  </footer>
+</div> <!-- /container -->
