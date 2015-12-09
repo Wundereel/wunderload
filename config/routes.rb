@@ -8,8 +8,10 @@ Rails.application.routes.draw do
       collection do
         post :create_videos
         patch :create_videos
+        get 'start', to: 'visitors#job_start', as: 'start'
       end
       member do
+        get :new
         get :add_information
         post :create_information
         patch :create_information
@@ -34,7 +36,7 @@ Rails.application.routes.draw do
   get '/interested_signup', to: 'visitors#email_signup', as: 'email_signup_success'
   get "/l/*id" => 'landing#show', as: :landing, format: false
 
-  root to: 'visitors#job_start'
+  root to: 'visitors#home'
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
