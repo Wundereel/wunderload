@@ -25,7 +25,7 @@ Once ready, we will share your Wundereel with <%= @job.share_emails.blank? ? 'ju
 
 <% unless @job.notes.blank? %>
 You gave the following notes to your editors:
-<% @job.notes %>
+<%= @job.notes %>
 <% end %>
 
 
