@@ -37,9 +37,42 @@
 
 <div class="container">
   <div class="row">
+    <% if content_for? :lead_form %>
+    <div class="col-xs-12 col-lg-6">
+      <div class="panel panel-default" id="lead_form">
+        <div class="panel-body">
+          <%= yield :lead_form %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-lg-6" style="text-align: center">
+      <h2 class="page-header" id="how-it-works" style="text-align: center;">How it works</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <%= image_tag config[:how_it_works][0][:img] %>
+        </div>
+        <div class="col-md-8">
+          <h4><%= config[:how_it_works][0][:tagline] %></h4>
+        </div>
+        <div style="margin-bottom: 1em;" class="clearfix"></div>
+        <div class="col-md-4">
+          <%= image_tag config[:how_it_works][1][:img] %>
+        </div>
+        <div class="col-md-8">
+          <h4><%= config[:how_it_works][1][:tagline] %></h4>
+        </div>
+        <div style="margin-bottom: 1em;" class="clearfix"></div>
+        <div class="col-md-4">
+          <%= image_tag config[:how_it_works][2][:img] %>
+        </div>
+        <div class="col-md-8">
+          <h4><%= config[:how_it_works][2][:tagline] %></h4>
+        </div>
+      </div>
+    </div>
+    <% else %>
     <div class="col-xs-12 col-lg-offset-1 col-lg-10" style="text-align: center">
       <h2 class="page-header" id="how-it-works" style="text-align: center;">How it works</h2>
-      <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
           <%= image_tag config[:how_it_works][0][:img] %>
@@ -53,8 +86,10 @@
           <%= image_tag config[:how_it_works][2][:img] %>
           <h4><%= config[:how_it_works][2][:tagline] %></h4>
         </div>
-
       </div>
+    </div>
+    <% end %>
+    <div class="col-xs-12 col-lg-offset-1 col-lg-10" style="text-align: center">
       <h2 class="page-header" id="in-action" style="text-align: center;">See us in action</h2>
       <div class="testimonials">
         <div class="row">
@@ -109,8 +144,14 @@
     </div>
     <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" >
       <div style="margin-top: 1em" >
-        <%= link_to start_jobs_create_index_path, { class: "btn btn-primary btn-lg btn-block"} do %>
-          Get Started
+        <% if content_for? :lead_form %>
+          <%= link_to '#lead_form', { class: "btn btn-primary btn-lg btn-block"} do %>
+            Get Started
+          <% end %>
+        <% else %>
+          <%= link_to start_jobs_create_index_path, { class: "btn btn-primary btn-lg btn-block"} do %>
+            Get Started
+          <% end %>
         <% end %>
       </div>
     </div>

@@ -16,4 +16,15 @@ class WundereelNotifications < ApplicationMailer
     mail(to: ENV.fetch('EMAIL_SIGNUP_RECIPIENT'), subject: 'Non-Dropbox Customer')
   end
 
+  def ask_for_wedding_lead(interested_person)
+    @interested_person = interested_person
+    mail(to: @interested_person.email, from: 'support@wundereel.com', subject: 'Your Wundereel Wedding Video')
+  end
+  def wedding_lead(interested_person)
+    @interested_person = interested_person
+    mail(to: ENV.fetch('EMAIL_SIGNUP_RECIPIENT'), subject: 'Wedding Lead')
+  end
+
+
+
 end

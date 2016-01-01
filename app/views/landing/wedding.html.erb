@@ -44,4 +44,49 @@
 }
 %>
 
+<%= content_for :lead_form do %>
+  <%= simple_form_for InterestedPerson.new, remote: true, format: :json, data: { successelement: 'lead_submit_success'} do |f| %>
+    <h3>We're excited to make a wedding video that you'll love.</h3>
+    <h4>Let us know how to contact you so we can schedule your package. </h4>
+    <%= f.hidden_field :source, value: "wedding_lead" %>
+
+    <div class="form-group string interested_person_name">
+      <%= f.input_field :name,
+        class: 'form-control',
+        placeholder: "Your Name",
+        as: :string
+      %>
+    </div>
+    <div class="form-group string interested_person_email">
+      <label class="control-error-label">That email doesn't look right</label>
+      <%= f.input_field :email,
+        class: 'form-control',
+        placeholder: "your.email@example.com",
+        as: :string
+      %>
+    </div>
+    <div class="form-group string interested_person_phone">
+      <%= f.input_field :phone,
+        class: 'form-control',
+        placeholder: "(888) 567-5309",
+        as: :string
+      %>
+    </div>
+    <div class="form-group string interested_person_phone">
+      <%= f.input_field :questions,
+        class: 'form-control',
+        placeholder: "Any questions?",
+        as: :text
+      %>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit, "Get in touch", class: "btn btn-primary"  %>
+    </div>
+  <% end %>
+  <div class="email-signup-success hidden" id="lead_submit_success">
+    <h3>Thanks!</h3>
+    <h4>We'll reach out (within one business day) to set you up with a wedding video package you'll love!</h4>
+  </div>
+<% end %>
+
 <%= render 'skeleton', config: config %>

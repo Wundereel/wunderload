@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :interested_people, only: [:new, :create] do
     collection do
       get :success
+      get :wedding_success
     end
   end
 

@@ -25,7 +25,12 @@ $ ->
 
 $(document).ready ->
   $(document).on "ajax:success", "form.new_interested_person", (event, xhr, settings) ->
-    window.location = $(this).data('successUrl')
+    if $(this).data('successUrl')
+      window.location =  $(this).data('successUrl')
+    else if $(this).data('successelement')
+      $(this).addClass('hidden')
+      $("##{$(this).data('successelement')}").removeClass('hidden')
+
 
   $(document).on "ajax:error", "form.new_interested_person", (event, jqxhr, settings, exception) ->
     $(this)

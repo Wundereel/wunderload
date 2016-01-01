@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613182927) do
+ActiveRecord::Schema.define(version: 20151227131746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,19 @@ ActiveRecord::Schema.define(version: 20150613182927) do
   end
 
   add_index "authentication_providers", ["name"], name: "index_name_on_authentication_providers", using: :btree
+
+  create_table "interested_people", force: :cascade do |t|
+    t.text     "email"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.inet     "client_ip"
+    t.string   "name"
+    t.string   "phone"
+    t.string   "source",     default: "no_dropbox"
+    t.text     "questions"
+  end
+
+  add_index "interested_people", ["email"], name: "index_interested_people_on_email", unique: true, using: :btree
 
   create_table "job_files", force: :cascade do |t|
     t.integer  "job_id"
