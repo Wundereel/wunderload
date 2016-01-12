@@ -7,7 +7,7 @@ module Jobs
       @job = Job.find(params[:id])
     end
 
-    @@WUNDEREEL_PRICE = 50_00
+    @@WUNDEREEL_PRICE = 40_00
 
     def redirect_right_step
       case @job.status
