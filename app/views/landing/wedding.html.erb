@@ -89,4 +89,8 @@
   </div>
 <% end %>
 
+<% content_for :nav_logo do %>
+  <a class="navbar-brand" href="#">  <%= image_tag 'wundereel_logo_wedding.png' %></a>
+<% end %>
+
 <%= render 'skeleton', config: config %>
