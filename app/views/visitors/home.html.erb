@@ -31,8 +31,9 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-lg-offset-2">
-        <h1>Turn raw video into highlights</h1>
-        <p>Your iPhone or GoPro video, professionally edited for $40</p>
+
+        <h1>Turn your memories into beautiful videos</h1>
+        <p>Professional video editing, starting at $40, in as little as two days</p>
         <p><a class="btn btn-primary btn-lg popup-vimeo" href="https://player.vimeo.com/video/141347379"  role="button">Watch how Wundereel works »</a></p>
       </div>
     </div>
@@ -44,32 +45,28 @@
 
     <div class="col-md-6 col-sm-12">
       <div class="panel panel-default" style="padding-bottom: 1em">
-        <%= image_tag 'landing/icons/waterski-80.png', { class: 'center-block'} %>
-        <h4 style="text-align: center">Share highlights with friends</h4>
-        <ul>
-          <li>Turn your most amazing videos into highlight reels, perfect for sharing on Facebook</li>
-          <li>You tell your editor exactly what you want to see</li>
-          <li>Upload raw video from Dropbox, or we'll send you a USB drive</li>
-        </ul>
+        <div class="panel-body">
+          <%= image_tag 'wundereel_logo.png', {class: 'center-block'} %>
+          <h4 style="text-align: center">Wundereel for Anyone</h4>
+          <p>Whether it's your kid's first birthday party or your latest shred sesh at the park, our professional editors pick all the best shots and make an awesome reel</p>
+          <div class="text-center">
+            <%= link_to start_jobs_create_index_path, { class: "btn btn-primary btn-lg"} do %>
+              Get Started
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-6 col-sm-12">
       <div class="panel panel-default" style="padding-bottom: 1em">
-        <%= image_tag 'landing/icons/edit_film_scissors-80.png', { class: 'center-block'} %>
-        <h4 style="text-align: center">Professional Editors in Los Angeles</h4>
-        <ul>
-          <li>Professional editors do the work, to save you time and make sure your reel is perfect. </li>
-          <li>Customize your reel with names, places, and music. </li>
-          <li>100% money-back satisfaction guarantee.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" >
-      <div style="margin-top: 1em" >
-        <%= link_to start_jobs_create_index_path, { class: "btn btn-primary btn-lg btn-block"} do %>
-          Get Started
-        <% end %>
+        <div class='panel-body'>
+        <%= image_tag 'wundereel_logo_wedding.png', { class: 'center-block', style: 'width: 60%' } %>
+        <p>Wundereel makes fun wedding videos at a price you'll love. Use Wundereel's GoPros to get your friends in on the fun or add a professional videographer to ensure all the key shots are captured</p>
+        <div class="text-center">
+          <%= link_to landing_path('wedding'), { class: "btn btn-primary btn-lg"} do %>
+            Plan your wedding
+          <% end %>
+        </div>
       </div>
     </div>
 
