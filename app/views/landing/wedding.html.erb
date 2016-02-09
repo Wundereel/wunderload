@@ -43,6 +43,9 @@
 
 }
 %>
+<%= content_for :navigation do %>
+  <%= render 'wedding_nav' %>
+<% end %>
 
 <%= content_for :lead_form do %>
   <%= simple_form_for InterestedPerson.new, remote: true, format: :json, data: { successelement: 'lead_submit_success'} do |f| %>
@@ -79,6 +82,12 @@
         as: :text
       %>
     </div>
+    <div class="form_group">
+      <%= f.input :package, include_blank: false, collection: [
+        "Custom", "Editing Only - $149", "Shoot It Yourself - $499", "Capture It All - $999"]
+      %>
+    </div>
+
     <div class="form-actions">
       <%= f.button :submit, "Get in touch", class: "btn btn-primary"  %>
     </div>
@@ -89,8 +98,8 @@
   </div>
 <% end %>
 
-<% content_for :nav_logo do %>
-  <a class="navbar-brand" href="#">  <%= image_tag 'wundereel_logo_wedding.png' %></a>
+<%= content_for :additional_sections do %>
+  <%= render 'wedding_packages' %>
 <% end %>
 
 <%= render 'skeleton', config: config %>

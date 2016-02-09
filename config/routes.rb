@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   get '/home', to: 'visitors#home', as: 'home'
   get '/interested_signup', to: 'visitors#email_signup', as: 'email_signup_success'
+  get "/l/weddingvideo" => 'landing#show', as: :weddingvideo, format: false, id: 'wedding2'
   get "/l/*id" => 'landing#show', as: :landing, format: false
 
   root to: 'visitors#home'

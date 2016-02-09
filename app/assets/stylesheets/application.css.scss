@@ -83,6 +83,25 @@
    font-size: inherit;
    }
 
+@media screen and (min-width:992px){
+  .navbar-brand-centered {
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 268px;
+    text-align: center;
+    height: 104px;
+  }
+  .navbar-brand.navbar-brand-centered {
+    padding: 0;
+    padding-top: 8px;
+  }
+  .navbar>.container .navbar-brand-centered,
+  .navbar>.container-fluid .navbar-brand-centered {
+    margin-left: -134px;
+  }
+}
+
  // THESE ARE EXAMPLES YOU CAN MODIFY
  // create your own classes
  // to make views framework-neutral
