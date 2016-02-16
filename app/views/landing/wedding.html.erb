@@ -43,6 +43,10 @@
 
 }
 %>
+
+<%= content_for :favicon do %>
+  <%= render 'layouts/wedding_favicons' %>
+<% end %>
 <%= content_for :navigation do %>
   <%= render 'wedding_nav' %>
 <% end %>
