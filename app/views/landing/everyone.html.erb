@@ -21,19 +21,14 @@
     </div><!--/.navbar-collapse -->
   </div>
 </nav>
-<%= link_to landing_path('wedding') do %>
-  <div class="nav-info-bar">
-      Find us at the wedding expo? Click here for wedding information.
-  </div>
-<% end %>
 
 <div class="jumbotron" style="background-position: center; background-image: url(<%= image_url 'wave_surfer.jpg' %>)">
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-lg-offset-2">
 
-        <h2>Turn your memories into beautiful videos</h2>
-        <p>Professional video editing, starting at $40, in as little as two days</p>
+        <h1>Turn raw video into highlights</h1>
+        <p>Your iPhone or GoPro video, professionally edited for $40</p>
         <p><a class="btn btn-primary btn-lg popup-vimeo" href="https://player.vimeo.com/video/141347379"  role="button">Watch how Wundereel works »</a></p>
       </div>
     </div>
@@ -45,32 +40,34 @@
 
     <div class="col-md-6 col-sm-12">
       <div class="panel panel-default" style="padding-bottom: 1em">
-        <div class="panel-body">
-          <%= image_tag 'wundereel_logo.png', {class: 'center-block'} %>
-          <h4 style="text-align: center">Wundereel for Anyone</h4>
-          <p>Whether it's your kid's first birthday party or your latest shred sesh at the park, our professional editors pick all the best shots and make an awesome reel</p>
-          <div class="text-center">
-            <%= link_to landing_path('everyone'), { class: "btn btn-primary btn-lg"} do %>
-              Learn more
-            <% end %>
-          </div>
-        </div>
+        <%= image_tag 'landing/icons/waterski-80.png', { class: 'center-block'} %>
+        <h4 style="text-align: center">Share life's best moments</h4>
+        <ul>
+          <li>Turn life’s best moments into fun videos that capture the moment perfectly.</li>
+          <li>Tell us exactly what you want to see, or leave it up to our pros to do the work!</li>
+          <li>Get the perfect cut every time, 30 second clips for Facebook to full length wedding videos!</li>
+        </ul>
       </div>
     </div>
     <div class="col-md-6 col-sm-12">
       <div class="panel panel-default" style="padding-bottom: 1em">
-        <div class='panel-body'>
-          <%= image_tag 'wundereel_logo_wedding.png', { class: 'center-block', style: 'width: 60%' } %>
-          <p>Wundereel makes fun wedding videos at a price you'll love. Use Wundereel's GoPros to get your friends in on the fun or add a professional videographer to ensure all the key shots are captured</p>
-          <div class="text-center">
-            <%= link_to landing_path('wedding'), { class: "btn btn-primary btn-lg"} do %>
-              Plan your wedding
-            <% end %>
-          </div>
-        </div>
+        <%= image_tag 'landing/icons/edit_film_scissors-80.png', { class: 'center-block'} %>
+        <h4 style="text-align: center">We only work with the best</h4>
+        <ul>
+          <li>Professional editors do the work, so your videos come back fast and perfect every time.</li>
+          <li>It’s your video, basic customizations like music, captions, and credits are always free.</li>
+          <li>If it isn’t perfect, we’ll work with you until it is!</li>
+        </ul>
       </div>
     </div>
 
+    <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" >
+      <div style="margin-top: 1em" >
+        <%= link_to start_jobs_create_index_path, { class: "btn btn-primary btn-lg btn-block"} do %>
+          Get Started
+        <% end %>
+      </div>
+    </div>
 
   </div>
 
