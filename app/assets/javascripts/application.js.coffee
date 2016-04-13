@@ -30,6 +30,7 @@ $(document).ready ->
     else if $(this).data('successelement')
       $(this).addClass('hidden')
       $("##{$(this).data('successelement')}").removeClass('hidden')
+      FacebookPixel?.track 'Lead'
 
 
   $(document).on "ajax:error", "form.new_interested_person", (event, jqxhr, settings, exception) ->
