@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   get "/l/weddingvideo" => 'landing#show', as: :weddingvideo, format: false, id: 'wedding2'
   get "/l/*id" => 'landing#show', as: :landing, format: false
 
+  resources :charges
+
   root to: 'visitors#home'
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
